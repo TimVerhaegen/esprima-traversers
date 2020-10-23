@@ -78,19 +78,25 @@ traverse = function traverse(node, fnc, traverseFnc) {
   if (!node)
     throw new Error('Tried traversing on a null node.');
 
+  // get keys belonging to this node
   var keys = Object.keys(node);
-  var nodeType = node.type;
 
+  // figure out its type and get the names of its children to traverse through
+  var nodeType = node.type;
   var children = traversalChildren[nodeType];
 
+  // for each child name ...
   children.forEach((item) => {
+    // get the child
     child = node[item];
 
+    // traverse through array children (assumes array elements ARE nodes)
     if (Array.isArray(child)) {
       child.forEach((item) => {
         traverseFnc(item, fnc);
       });
     } else {
+      // if it's just a node we traverse through it as well
       traverseFnc(child, fnc);
     }
   });
@@ -103,5 +109,5 @@ exports.traverseBottomUp = function traverseBottomUp(node, fnc) {
 
 exports.traverseTopDown = function traverseTopDown(node, fnc) {
   fnc(node);
-  traverse(node, fnc, exports.traverseBottomUp);
+  traverse(node, fnc, exports.traverseTopDown);
 }
