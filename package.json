@@ -1,0 +1,19 @@
+{
+  "name": "esprima-traversers",
+  "version": "1.0.0",
+  "description": "Provides different methods to traverse AST's created by esprima",
+  "main": "esprima-traversers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timverhaegen/esprima-traversers.git"
+  },
+  "author": "Tim Verhaegen <tim.verhaegen@hotmail.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timverhaegen/esprima-traversers/issues"
+  },
+  "homepage": "https://github.com/timverhaegen/esprima-traversers#readme"
+}
