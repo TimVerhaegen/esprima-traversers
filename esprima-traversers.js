@@ -74,7 +74,7 @@ const traversalChildren = {
         "YieldExpression": ['argument']
     };
 
-traverse = function traverse(node, fnc, traverseFnc) {
+traverse = function traverse(node, fnc, traverseFnc, data) {
   if (!node)
     throw new Error('Tried traversing on a null node.');
 
@@ -93,21 +93,21 @@ traverse = function traverse(node, fnc, traverseFnc) {
     // traverse through array children (assumes array elements ARE nodes)
     if (Array.isArray(child)) {
       child.forEach((item) => {
-        traverseFnc(item, fnc);
+        traverseFnc(item, fnc, data);
       });
     } else {
       // if it's just a node we traverse through it as well
-      traverseFnc(child, fnc);
+      traverseFnc(child, fnc, data);
     }
   });
 }
 
-exports.traverseBottomUp = function traverseBottomUp(node, fnc) {
+exports.traverseBottomUp = function traverseBottomUp(node, fnc, data=null) {
   traverse(node, fnc, exports.traverseBottomUp);
   fnc(node);
 }
 
-exports.traverseTopDown = function traverseTopDown(node, fnc) {
-  fnc(node);
-  traverse(node, fnc, exports.traverseTopDown);
+exports.traverseTopDown = function traverseTopDown(node, fnc, data=null) {
+  var parentResult = fnc(node, data);
+  traverse(node, fnc, exports.traverseTopDown, parentResult);
 }
